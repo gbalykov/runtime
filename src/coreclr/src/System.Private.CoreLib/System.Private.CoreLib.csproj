@@ -31,7 +31,7 @@
   </ItemGroup>
 
   <PropertyGroup>
-    <Platform Condition=" '$(Platform)' == '' ">$(TargetArchitecture)</Platform>
+    <Platform Condition=" '$(Platform)' == '' or '$(Platform)' == 'AnyCPU' ">$(TargetArchitecture)</Platform>
     <Platform Condition=" '$(Platform)' == 'armel' ">arm</Platform>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <!-- This prevents the default MsBuild targets from referencing System.Core.dll -->

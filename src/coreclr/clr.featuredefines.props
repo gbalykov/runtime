@@ -19,15 +19,15 @@
 
         <FeatureArrayStubAsIL>true</FeatureArrayStubAsIL>
         <FeatureMulticastStubAsIL>true</FeatureMulticastStubAsIL>
-        <FeaturePortableShuffleThunks Condition="'$(Platform)' != 'x86'">true</FeaturePortableShuffleThunks>
+        <FeaturePortableShuffleThunks Condition="'$(TargetArchitecture)' != 'x86'">true</FeaturePortableShuffleThunks>
         <FeatureInstantiatingStubAsIL>true</FeatureInstantiatingStubAsIL>
         <FeatureStubsAsIL>true</FeatureStubsAsIL>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(TargetsWindows)' == 'true'">
-        <FeatureArrayStubAsIL Condition="'$(Platform)' != 'x86'">true</FeatureArrayStubAsIL>
-        <FeatureMulticastStubAsIL Condition="'$(Platform)' != 'x86'">true</FeatureMulticastStubAsIL>
-        <FeatureStubsAsIL Condition="'$(Platform)' == 'arm64'">true</FeatureStubsAsIL>
+        <FeatureArrayStubAsIL Condition="'$(TargetArchitecture)' != 'x86'">true</FeatureArrayStubAsIL>
+        <FeatureMulticastStubAsIL Condition="'$(TargetArchitecture)' != 'x86'">true</FeatureMulticastStubAsIL>
+        <FeatureStubsAsIL Condition="'$(TargetArchitecture)' == 'arm64'">true</FeatureStubsAsIL>
         <FeatureComWrappers>true</FeatureComWrappers>
         <FeatureCominterop>true</FeatureCominterop>
         <FeatureClassicCominterop>true</FeatureClassicCominterop>
@@ -37,8 +37,8 @@
         <FeatureAppX>true</FeatureAppX>
         <FeatureWin32Registry>true</FeatureWin32Registry>
         <FeatureProfAttach>true</FeatureProfAttach>
-        <FeaturePortableShuffleThunks Condition="'$(Platform)' != 'x86'">true</FeaturePortableShuffleThunks>
-        <FeatureInstantiatingStubAsIL Condition="'$(Platform)' != 'x86'">true</FeatureInstantiatingStubAsIL>
+        <FeaturePortableShuffleThunks Condition="'$(TargetArchitecture)' != 'x86'">true</FeaturePortableShuffleThunks>
+        <FeatureInstantiatingStubAsIL Condition="'$(TargetArchitecture)' != 'x86'">true</FeatureInstantiatingStubAsIL>
     </PropertyGroup>
 
     <!-- Features we're currently flighting, but don't intend to ship in officially supported releases -->

@@ -21,7 +21,7 @@
     <Configuration Condition="'$(Configuration)' == 'release'">Release</Configuration>
     <Configuration Condition="'$(Configuration)' == 'checked'">Checked</Configuration>
 
-    <Platform Condition="'$(Platform)' == ''">$(TargetArchitecture)</Platform>
+    <Platform Condition="'$(Platform)' == ''">AnyCPU</Platform>
 
     <PlatformConfigPathPart>$(TargetOS).$(TargetArchitecture).$(Configuration)</PlatformConfigPathPart>
   </PropertyGroup>
