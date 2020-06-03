@@ -186,6 +186,9 @@
   <data name="OptimizeSpeedOption" xml:space="preserve">
     <value>Enable optimizations, favor code speed</value>
   </data>
+  <data name="OutNearInputOption" xml:space="preserve">
+    <value>Create output files near input files with ni.dll suffix</value>
+  </data>
   <data name="OutputFilePath" xml:space="preserve">
     <value>Output file path</value>
   </data>

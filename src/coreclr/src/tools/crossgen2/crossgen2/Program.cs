@@ -116,7 +116,7 @@ namespace ILCompiler
 
             ProcessCommandLine();
 
-            if (_commandLineOptions.OutputFilePath == null)
+            if (_commandLineOptions.OutputFilePath == null && !_commandLineOptions.OutNearInput)
                 throw new CommandLineException(SR.MissingOutputFile);
 
             //
@@ -246,6 +246,12 @@ namespace ILCompiler
                                                                   optimisticInstructionSet,
                                                                   InstructionSetSupportBuilder.GetNonSpecifiableInstructionSetsForArch(_targetArchitecture),
                                                                   _targetArchitecture);
+
+            //
+            // Initialize output filename
+            //
+
+            var outFile = _commandLineOptions.OutNearInput ? new FileInfo(_commandLineOptions.InputFilePaths[0].FullName.Replace(".dll", ".ni.dll")) : _commandLineOptions.OutputFilePath;
 
             using (PerfEventSource.StartStopEvents.CompilationEvents())
             {
@@ -476,7 +482,7 @@ namespace ILCompiler
                         .UseParallelism(_commandLineOptions.Parallelism)
                         .UseJitPath(_commandLineOptions.JitPath)
                         .UseInstructionSetSupport(instructionSetSupport)
-                        .GenerateOutputFile(_commandLineOptions.OutputFilePath.FullName)
+                        .GenerateOutputFile(outFile.FullName)
                         .UseILProvider(ilProvider)
                         .UseBackendOptions(_commandLineOptions.CodegenOptions)
                         .UseLogger(logger)
@@ -487,7 +493,7 @@ namespace ILCompiler
                     compilation = builder.ToCompilation();
 
                 }
-                compilation.Compile(_commandLineOptions.OutputFilePath.FullName);
+                compilation.Compile(outFile.FullName);
 
                 if (_commandLineOptions.DgmlLogFileName != null)
                     compilation.WriteDependencyLog(_commandLineOptions.DgmlLogFileName.FullName);
