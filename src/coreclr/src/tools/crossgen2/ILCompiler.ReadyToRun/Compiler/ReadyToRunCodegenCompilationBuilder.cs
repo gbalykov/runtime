@@ -20,6 +20,8 @@ namespace ILCompiler
 {
     public sealed class ReadyToRunCodegenCompilationBuilder : CompilationBuilder
     {
+        private static bool _isJitInitialized = false;
+
         private readonly IEnumerable<string> _inputFiles;
         private bool _ibcTuning;
         private bool _resilient;
@@ -192,7 +194,11 @@ namespace ILCompiler
             if (_ibcTuning)
                 corJitFlags.Add(CorJitFlag.CORJIT_FLAG_BBINSTR);
 
-            JitConfigProvider.Initialize(corJitFlags, _ryujitOptions, _jitPath);
+            if (!_isJitInitialized)
+            {
+                JitConfigProvider.Initialize(corJitFlags, _ryujitOptions, _jitPath);
+                _isJitInitialized = true;
+            }
 
             return new ReadyToRunCodegenCompilation(
                 graph,

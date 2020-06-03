@@ -247,11 +247,33 @@ namespace ILCompiler
                                                                   InstructionSetSupportBuilder.GetNonSpecifiableInstructionSetsForArch(_targetArchitecture),
                                                                   _targetArchitecture);
 
+            if (_commandLineOptions.SingleFileCompilation)
+            {
+                var singleCompilationInputFilePaths = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+
+                foreach (var inputFile in _inputFilePaths)
+                {
+                    singleCompilationInputFilePaths.Clear();
+                    singleCompilationInputFilePaths.Add(inputFile.Key, inputFile.Value);
+
+                    RunSingleCompilation(singleCompilationInputFilePaths, instructionSetSupport);
+                }
+            }
+            else
+            {
+                RunSingleCompilation(_inputFilePaths, instructionSetSupport);
+            }
+
+            return 0;
+        }
+
+        private void RunSingleCompilation(Dictionary<string, string> inFilePaths, InstructionSetSupport instructionSetSupport)
+        {
             //
             // Initialize output filename
             //
 
-            var outFile = _commandLineOptions.OutNearInput ? new FileInfo(_commandLineOptions.InputFilePaths[0].FullName.Replace(".dll", ".ni.dll")) : _commandLineOptions.OutputFilePath;
+            var outFile = _commandLineOptions.OutNearInput ? new FileInfo(inFilePaths.ElementAt(0).Value.Replace(".dll", ".ni.dll")) : _commandLineOptions.OutputFilePath;
 
             using (PerfEventSource.StartStopEvents.CompilationEvents())
             {
@@ -274,12 +296,12 @@ namespace ILCompiler
                     // See: https://github.com/dotnet/corert/issues/2785
                     //
                     // When we undo this this hack, replace this foreach with
-                    //  typeSystemContext.InputFilePaths = _inputFilePaths;
+                    //  typeSystemContext.InputFilePaths = inFilePaths;
                     //
                     Dictionary<string, string> allInputFilePaths = new Dictionary<string, string>();
                     Dictionary<string, string> inputFilePaths = new Dictionary<string, string>();
                     List<ModuleDesc> referenceableModules = new List<ModuleDesc>();
-                    foreach (var inputFile in _inputFilePaths)
+                    foreach (var inputFile in inFilePaths)
                     {
                         try
                         {
@@ -498,8 +520,6 @@ namespace ILCompiler
                 if (_commandLineOptions.DgmlLogFileName != null)
                     compilation.WriteDependencyLog(_commandLineOptions.DgmlLogFileName.FullName);
             }
-
-            return 0;
         }
 
         private TypeDesc FindType(CompilerTypeSystemContext context, string typeName)

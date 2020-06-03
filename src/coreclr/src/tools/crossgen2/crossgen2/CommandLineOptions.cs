@@ -25,6 +25,7 @@ namespace ILCompiler
         public bool Composite { get; set; }
         public bool CompileNoMethods { get; set; }
         public bool OutNearInput { get; set; }
+        public bool SingleFileCompilation { get; set; }
 
         public FileInfo DgmlLogFileName { get; set; }
         public bool GenerateFullDgmlLog { get; set; }
@@ -104,6 +105,7 @@ namespace ILCompiler
                 new Option(new[] { "--composite" }, SR.CompositeBuildMode),
                 new Option(new[] { "--compile-no-methods" }, SR.CompileNoMethodsOption),
                 new Option(new[] { "--out-near-input" }, SR.OutNearInputOption),
+                new Option(new[] { "--single-file-compilation" }, SR.SingleFileCompilationOption),
                 new Option(new[] { "--tuning" }, SR.TuningImageOption) 
                 {
                     Argument = new Argument<bool>() 
