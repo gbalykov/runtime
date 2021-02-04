@@ -1139,12 +1139,9 @@ void MulticoreJitManager::SetProfileRoot(const WCHAR * pProfilePath)
 
 #endif
 
-    if (g_SystemInfo.dwNumberOfProcessors >= 2)
+    if (InterlockedCompareExchange(& m_fSetProfileRootCalled, SETPROFILEROOTCALLED, 0) == 0) // Only allow the first call per appdomain
     {
-        if (InterlockedCompareExchange(& m_fSetProfileRootCalled, SETPROFILEROOTCALLED, 0) == 0) // Only allow the first call per appdomain
-        {
-            m_profileRoot = pProfilePath;
-        }
+        m_profileRoot = pProfilePath;
     }
 }
 
@@ -1168,9 +1165,6 @@ void MulticoreJitManager::StartProfile(AppDomain * pDomain, ICLRPrivBinder *pBin
         _FireEtwMulticoreJit(W("STARTPROFILE"), W("No SetProfileRoot"), 0, 0, 0);
         return;
     }
-
-    // Need extra processor for multicore JIT feature
-    _ASSERTE(g_SystemInfo.dwNumberOfProcessors >= 2);
 
 #ifdef PROFILING_SUPPORTED
 
