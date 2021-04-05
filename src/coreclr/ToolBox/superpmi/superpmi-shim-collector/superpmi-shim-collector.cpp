@@ -153,7 +153,7 @@ extern "C"
     return TRUE;
 }
 
-extern "C" DLLEXPORT void __stdcall jitStartup(ICorJitHost* host)
+extern "C" DLLEXPORT void jitStartup(ICorJitHost* host)
 {
     // crossgen2 doesn't invoke DllMain on Linux/Mac (under PAL), so optionally do initialization work here.
     InitializeShim();
@@ -180,7 +180,7 @@ extern "C" DLLEXPORT void __stdcall jitStartup(ICorJitHost* host)
     pnjitStartup(g_ourJitHost);
 }
 
-extern "C" DLLEXPORT ICorJitCompiler* __stdcall getJit()
+extern "C" DLLEXPORT ICorJitCompiler* getJit()
 {
     DWORD             dwRetVal = 0;
     PgetJit           pngetJit;
