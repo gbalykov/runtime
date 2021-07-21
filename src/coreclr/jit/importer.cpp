@@ -7256,6 +7256,12 @@ void Compiler::impCheckForPInvokeCall(
 
     if (suppressGCTransition)
     {
+        if (opts.compPInvokeInlineInMCJ)
+        {
+            // MultiCoreJit thread can't inline PInvoke with SuppressGCTransitionAttribute, because it can't be resolved in mcj thread
+            return;
+        }
+
         call->gtCallMoreFlags |= GTF_CALL_M_SUPPRESS_GC_TRANSITION;
     }
 

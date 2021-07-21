@@ -9236,6 +9236,8 @@ public:
         bool compDbgInfo;   // Gather debugging info?
         bool compDbgEnC;
 
+        bool compPInvokeInlineInMCJ;
+
 #ifdef PROFILING_SUPPORTED
         bool compNoPInvokeInlineCB;
 #else

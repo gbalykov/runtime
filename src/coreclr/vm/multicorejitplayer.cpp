@@ -541,6 +541,15 @@ BOOL MulticoreJitPrepareCodeConfig::SetNativeCode(PCODE pCode, PCODE * ppAlterna
     return TRUE;
 }
 
+CORJIT_FLAGS MulticoreJitPrepareCodeConfig::GetJitCompilationFlags()
+{
+    STANDARD_VM_CONTRACT;
+
+    CORJIT_FLAGS flags = PrepareCodeConfig::GetJitCompilationFlags();
+    flags.Set(CORJIT_FLAGS::CORJIT_FLAG_PINVOKE_INLINE_IN_MCJ);
+    return flags;
+}
+
 MulticoreJitCodeInfo::MulticoreJitCodeInfo(PCODE entryPoint, const MulticoreJitPrepareCodeConfig *pConfig)
 {
     WRAPPER_NO_CONTRACT;

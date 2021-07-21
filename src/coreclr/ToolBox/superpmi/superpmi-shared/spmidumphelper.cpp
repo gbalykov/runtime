@@ -253,6 +253,7 @@ std::string SpmiDumpHelper::DumpJitFlags(unsigned long long flags)
     AddFlag(READYTORUN);
     AddFlag(PROF_ENTERLEAVE);
 
+    AddFlag(PINVOKE_INLINE_IN_MCJ);
     AddFlag(PROF_NO_PINVOKE_INLINE);
     AddFlag(SKIP_VERIFICATION);
     AddFlag(PREJIT);
@@ -298,4 +299,3 @@ std::string SpmiDumpHelper::DumpJitFlags(unsigned long long flags)
 
     return s;
 }
-

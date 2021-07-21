@@ -3244,6 +3244,8 @@ void Compiler::compInitOptions(JitFlags* jitFlags)
     s_dspMemStats = (JitConfig.DisplayMemStats() != 0);
 #endif
 
+    opts.compPInvokeInlineInMCJ = jitFlags->IsSet(JitFlags::JIT_FLAG_PINVOKE_INLINE_IN_MCJ);
+
 #ifdef PROFILING_SUPPORTED
     opts.compNoPInvokeInlineCB = jitFlags->IsSet(JitFlags::JIT_FLAG_PROF_NO_PINVOKE_INLINE);
 

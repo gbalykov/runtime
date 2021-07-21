@@ -52,7 +52,7 @@ public:
         JIT_FLAG_MAKEFINALCODE           = 18, // Use the final code generator, i.e., not the interpreter.
         JIT_FLAG_READYTORUN              = 19, // Use version-resilient code generation
         JIT_FLAG_PROF_ENTERLEAVE         = 20, // Instrument prologues/epilogues
-        JIT_FLAG_UNUSED11                = 21,
+        JIT_FLAG_PINVOKE_INLINE_IN_MCJ   = 21, // Disables unsupported PInvoke inlining in MultiCoreJit thread
         JIT_FLAG_PROF_NO_PINVOKE_INLINE  = 22, // Disables PInvoke inlining
         JIT_FLAG_SKIP_VERIFICATION       = 23, // (lazy) skip verification - determined without doing a full resolve. See comment below
         JIT_FLAG_PREJIT                  = 24, // jit or prejit is the execution engine.
@@ -196,6 +196,7 @@ public:
         FLAGS_EQUAL(CORJIT_FLAGS::CORJIT_FLAG_MAKEFINALCODE, JIT_FLAG_MAKEFINALCODE);
         FLAGS_EQUAL(CORJIT_FLAGS::CORJIT_FLAG_READYTORUN, JIT_FLAG_READYTORUN);
         FLAGS_EQUAL(CORJIT_FLAGS::CORJIT_FLAG_PROF_ENTERLEAVE, JIT_FLAG_PROF_ENTERLEAVE);
+        FLAGS_EQUAL(CORJIT_FLAGS::CORJIT_FLAG_PINVOKE_INLINE_IN_MCJ, JIT_FLAG_PINVOKE_INLINE_IN_MCJ);
         FLAGS_EQUAL(CORJIT_FLAGS::CORJIT_FLAG_PROF_NO_PINVOKE_INLINE, JIT_FLAG_PROF_NO_PINVOKE_INLINE);
         FLAGS_EQUAL(CORJIT_FLAGS::CORJIT_FLAG_SKIP_VERIFICATION, JIT_FLAG_SKIP_VERIFICATION);
         FLAGS_EQUAL(CORJIT_FLAGS::CORJIT_FLAG_PREJIT, JIT_FLAG_PREJIT);
