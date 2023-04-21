@@ -26,7 +26,6 @@
     <ItemGroup>
       <AssembliesToCopy Include="$(OutDir)/libNativeLibrary.*" />
       <AssembliesToCopy Include="$(OutDir)/NativeLibrary.*" />
-      <AssembliesToCopy Include="$(OutDir)/$(TargetName).dll" />
     </ItemGroup>
     <Copy SourceFiles="@(AssembliesToCopy)" DestinationFiles="@(AssembliesToCopy -> '$(NativeLibrarySubdirectory)/%(Filename)$(FileNameSuffix)%(Extension)')" />
   </Target>
